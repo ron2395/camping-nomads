@@ -1,0 +1,38 @@
+body {background-color: #e5e5f7;
+opacity: 1;
+background-size: 36px 36px;
+background-image:  repeating-linear-gradient(0deg, #f3f3f5, #f3f3f5 1.8px, #e5e5f7 1.8px, #e5e5f7);
+background-attachment: fixed;
+}
+
+.contact-details {
+  width:auto;
+}
+
+.contact-details > p {
+  margin-bottom: 0;
+}
+
+.header-div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-body {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+@media (max-width: 768px) {
+  .col-6 {
+    width: 90%;
+    margin-left: 5%;
+  }
+  .card-body {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .header-div {
+    display: block;
+  }
+}

@@ -1,0 +1,51 @@
+<% layout('layouts/boilerplate') %>
+<div class="container">
+<div class="center-form d-flex">
+    <div class="row my-auto">
+        <div class="col-xl-4 offset-xl-4">
+            <div class="card shadow">
+                <img src="https://res.cloudinary.com/dsyimxnrg/image/upload/v1666364322/HimalyanCamps/photo_2022-06-10_18-24-01_fhbw81.jpg"
+                    alt="" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">Register</h5>
+                    <form action="/register" class="validate-form" method="POST" novalidate>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" name="username" id="username" class="form-control" required>
+                            <div class="valid-feedback">
+                                Sounds Good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Please enter a username
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">email</label>
+                            <input type="email" name="email" id="email" class="form-control" required>
+                            <div class="valid-feedback">
+                                Looks Good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Please enter an Email
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">password</label>
+                            <input type="password" name="password" id="password" class="form-control" required>
+                            <div class="valid-feedback">
+                                Looks Good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Please enter a password
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-success col-12">Sign up</button>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>

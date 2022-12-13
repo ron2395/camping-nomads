@@ -1,0 +1,49 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container">
+<div class="row center-form">
+    <h1 class="text-center mt-auto">Add new Camp</h1>
+    <div class="col-md-6 offset-md-3">
+        <form action="/camps" method="POST" class="validate-form" enctype="multipart/form-data" novalidate>
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" name="camp[title]" id="title" class="form-control" required>
+                <div class="invalid-feedback">Please enter a title for the camp</div>
+            </div>
+            <div class="mb-3">
+                <label for="coordinates" class="form-label">Location</label>
+                <input type="text" name="longitude" id="longitude" class="d-none">
+                <input type="text" name="latitude" id="latitude" class="d-none">
+                <input type="text" name="camp[location]" id="location" class="d-none" required>
+                <div id="geocoder"></div>
+            </div>
+            <label for="" class="mb-2">Upload image(s)</label>
+            <div class="input-group mb-3">
+                <input type="file" class="form-control" id="image" name="image" multiple>
+                <div class="invalid-feedback">Please select an image</div>
+              </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Price</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="price-label">&#x20B9;</span>
+                <input type="text" name="camp[price]" id="price" class="form-control" placeholder="0.00" aria-label="price" aria-describedby="price-label" required>
+                <div class="invalid-feedback">Please enter a price for the camp</div>
+            </div>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description (Upto 250 characters)</label>
+                <textarea name="camp[description]" id="description" class="form-control" rows="4" maxlength="250" required></textarea>
+                <div class="invalid-feedback">Please enter a description for the camp</div>
+            </div>
+            <div>
+            <button class="btn btn-success">Add camp</button>
+            <a href="/camps" class="btn btn-danger">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+<script>
+    const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
+</script>
+<script src="/scripts/newMap.js"></script>

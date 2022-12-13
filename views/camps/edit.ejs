@@ -1,0 +1,95 @@
+<% layout('layouts/boilerplate') %>
+<div class="container">
+    <div class="row center-form">
+        <h1 class="text-center mt-auto">Edit <%= camp.title %></h1>
+        <div class="col-md-6 offset-md-3">
+            <form action="/camps/<%=camp._id%>?_method=PUT" method="POST" class="validate-form"
+                enctype="multipart/form-data" id="editForm" novalidate>
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" name="camp[title]" id="title" class="form-control" value="<%= camp.title %>"
+                        required>
+                </div>
+                <div class="d-none">
+                  <input type="text" name="longitude" id="longitude" value="<%= camp.geometry.coordinates[0] %>" readonly>
+                  <input type="text" name="latitude" id="latitude" value="<%= camp.geometry.coordinates[1] %>" readonly>
+                  <input type="text" name="camp[location]" id="location" value="<%= camp.location %>" readonly>
+              </div>
+                <label for="" class="mb-2">Add image(s)</label>
+                <div class="input-group mb-3">
+                    <input type="file" class="form-control" id="image" name="image" multiple>
+                </div>
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="price-label">&#x20B9;</span>
+                        <input type="text" name="camp[price]" id="price" class="form-control" placeholder="0.00"
+                            aria-label="price" aria-describedby="price-label" value="<%= camp.price %>" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description (Upto 250 characters)</label>
+                    <textarea name="camp[description]" id="description" class="form-control" maxlength="250" rows="4"
+                        required><%= camp.description %></textarea>
+                </div>
+
+                <button type="button" class="btn btn-info mt-1 mb-1" data-bs-toggle="modal" data-bs-target="#saveModal">
+                    Save
+                  </button>
+
+                  <!-------------Save Modal ------------>
+                  <div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="saveModalLabel">Save changes?</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          Are you sure you want to save the changes?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                          <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!---------------------------------->
+                  <!--------------image thumbnails------------->
+                <a href="/camps/<%= camp._id %>" class="btn btn-secondary mt-1">Cancel</a>
+                <% camp.images.forEach(function(img, i) { %>
+                    <img src="<%= img.thumbnail %>" alt="image-<%= i %>" class="img-thumbnail">
+                    <div class="form-check-inline">
+                        <input type="checkbox" id="image-<%= i %>" name="deleteImages[]" value="<%= img.filename %>">
+                        <label for="image-<%= i %>">Remove</label>
+                    </div>
+                    <% }) %>
+            </form>
+            <form action="/camps/<%=camp._id%>?_method=DELETE" method="POST" id="deleteForm">
+              <!------------------------------------------------->
+                <button type="button" class="btn btn-danger mt-1 mb-3" data-bs-toggle="modal" data-bs-target="#deleteModal">DELETE</button>
+                  <!-----------Delete Modal---------------- -->
+                  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="deleteModalLabel">DELETE CAMP?!!</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          This action can't be undone!!!
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                          <button type="submit" class="btn btn-danger">DELETE!</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!----------------------------------------->
+                <div class="mb-3"></div>
+            </form>
+        </div>
+    </div>
+    </div>

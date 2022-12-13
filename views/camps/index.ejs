@@ -1,0 +1,67 @@
+<% layout('layouts/boilerplate') %>
+<!------------cluster map---------->
+<div id="cluster-map" class="mb-4"></div>
+<!----------------------------->
+<div class="container" id="index-container">
+  <div class="center-form">
+    <!------------Title------------>
+    <div id="main-title" class="mb-4">
+    <h1 class="display-3 text-center"><%= url === 'camps' ? 'CAMPS' : `Top results for ${query}` %></h1>
+    <% if(url === 'search' && camps.length) { %> 
+      <div class="fs-4 text-center">Refine search query for more relevant results</div>
+      <% } %>
+    <hr>
+    </div>
+    <!---------------------camp indexes-------------------->
+    <div class="row row-cols-1 row-cols-md-3 g-4 mb-4">
+      <% if(!camps.length) { %> 
+        <div class="display-4 footer-fix text-center">No results found!</div>
+        <% } %>
+    <% for(let camp of camps) {%>
+        <div class="col card-effect">
+            <a href="/camps/<%= camp._id %>" class="card-link" id="card-block">
+            <div class="card index-card">
+              <div class="index-img-container">
+                <img src="<%= camp.images[0].url %>" class="card-img-top index-img" alt="camp image">
+              </div>
+              <div class="card-body index-body">
+                <h5 class="card-title lead"><strong><%= camp.title %></strong></h5>
+                <p class="card-text"><small>Starting &#x20B9;</small><%= camp.price %></p>
+                <p class="card-text text-muted"><%= camp.location %></p>
+                <p class="card-text"><small><%= camp.description %></small></p>
+              </div>
+              <div class="card-body">
+                <button class="btn btn-primary col-12">View camp</button>
+              </div>
+            </div>
+        </a>    
+        </div>  
+        <% } %>
+    </div>
+    <!--------------------Page buttons--------------->
+    <% if(url === 'camps' && camps.length) { %> 
+    <nav aria-label="page navigation buttons">
+      <ul class="pagination flex-wrap justify-content-center" id="pagination">
+        <li class="<%= !page || page == 1 ? 'active' : '' %>">
+          <a class="page-link" href="/<%= url %>?page=1">1</a>
+          </li>
+        <% for(let i = 2; i <= totalPages; i++) { %>
+          <li class="<%= page == i ? 'active' : '' %>">
+            <a class="page-link" href="/<%= url %>?page=<%= i %>"><%= i %></a>
+          </li>
+      <% } %>
+      </ul>
+    </nav>
+    <% } %> 
+    </div>
+    </div>
+    <!---------------back to top--------------->
+    <button class="back-to-top hidden"><ion-icon name="arrow-up-sharp"></ion-icon></button>
+    <!----------------------------------------->
+            <script>
+                const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
+                const camps = { features: <%- JSON.stringify(camps) %> };
+                const totalCamps = { features: <%- JSON.stringify(totalCamps) %> };
+            </script>
+            <script src="/scripts/clusterMap.js"></script>
+            <script src="/scripts/scrollTop.js"></script>

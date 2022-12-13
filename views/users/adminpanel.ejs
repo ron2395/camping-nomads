@@ -1,0 +1,44 @@
+<% layout('layouts/boilerplate') %>
+<div class="container">
+    <div class="center-form">
+        <h1 class="mt-4">Admin Panel</h1>
+        <hr><br>
+        <div>
+            <h2>All users</h2>
+            <ul class="list-group">
+            <% for(let user of users) { %>
+                <% if(user.role != 'admin'){ %>
+                <li class="list-group-item">
+                    <form action="/admin/<%= user._id %>?_method=DELETE" method="POST">
+                    <button type="button" class="me-3 btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteUserModal<%= user._id %>">
+                        <ion-icon name="trash-outline"></ion-icon>
+                    </button>
+                    <!---------------delete user modal-------------->
+                    <div class="modal fade" id="deleteUserModal<%= user._id %>" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="deleteUserModalLabel<%= user._id %>">Delete User <%= user.username %>?</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              Are you sure?
+                              <div>All camps and reviews posted by <b><%= user.username %></b> will be deleted</div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                              <button type="submit" class="btn btn-danger">Confirm deletion</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!------------------------->
+                    </form>
+                    <%= user.username %>  ||  <%= user.email %>
+                </li>
+                <% } %>
+            <% } %>
+            </ul>
+        </div>
+    </div>
+</div>

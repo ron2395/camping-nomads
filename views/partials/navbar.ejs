@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <span id="logo">
+      <a class="navbar-brand" href="/">
+        <svg xmlns="http://www.w3.org/2000/svg" style="fill:white" viewBox="0 0 512 512"><path d="M256 32c12.5 0 24.1 6.4 30.7 17L503.4 394.4c5.6 8.9 8.6 19.2 8.6 29.7c0 30.9-25 55.9-55.9 55.9H55.9C25 480 0 455 0 424.1c0-10.5 3-20.8 8.6-29.7L225.2 49c6.6-10.6 18.3-17 30.8-17zm65 192L256 120.4 176.9 246.5 208 288l48-64h65z"/></svg>
+      </a>
+    </span>
+    <a class="navbar-brand" href="/" id="brand-name">Camping Nomads</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav ms-auto">
+        <div class="query-box d-none" id="search-field">
+        <form class="d-flex" action="/search" method="POST">
+            <input class="form-control me-2" type="search" placeholder="Search" name="query" aria-label="Search">
+            <button class="btn btn-outline-success me-2" type="submit">Search</button>
+        </form>
+        </div>
+        <button id="search-button" class="navbar-link"><ion-icon name="search-circle-outline"></ion-icon></button>
+        <a class="nav-link" href="/camps" id="nav-link">Camps</a>
+        <a class="nav-link" href="/camps/new" id="nav-link">Add new</a>
+        <% if(!currentUser) { %>
+        <a href="/login" class="nav-link" id="nav-link">Login</a>
+        <a href="/register" class="nav-link" id="nav-link">Sign up</a>
+        <% } else { %>
+          <% if(currentUser.role === 'admin') { %>
+            <a href="/admin" class="nav-link">Panel</a> 
+            <% } %> 
+          <a href="/logout" class="nav-link">Logout</a>
+          <a class="nav-link" href="/profile"><%= currentUser.username %></a>
+          <% } %>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script src="/scripts/searchField.js"></script>
